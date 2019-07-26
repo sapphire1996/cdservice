@@ -100,7 +100,7 @@ export class CreateProject extends Component {
     if (!auth.uid) return <Redirect to='/signIn'/>
 
     return (
-      <div className="container">
+      <div className="p-1">
      
         <form onSubmit={this.handleSubmit} className="white">
             <h5 className="grey-text text-darken-3">Make it brief! The more brief, the more the visibility</h5>
@@ -131,6 +131,7 @@ export class CreateProject extends Component {
                   onChange={this.onEmailchange} />
             </div>
             <div>
+              <p>Choose an image for your advert(not too big size)</p>
             <input
                type="file"
                placeholder='image for advert'

@@ -71,11 +71,11 @@ class App extends Component {
   this.getUsers();
 }
   render() {  
-    const {editables,cdsRegLists}= this.props  
+    const {editables}= this.props  
       const heading = editables && editables.map((heading) =>{
       return heading.year + ' BATCH '+ heading.batch +' STREAM '+ heading.stream;
     }) 
-    const lists= cdsRegLists && cdsRegLists.map(list=>list);
+    // const lists= cdsRegLists && cdsRegLists.map(list=>list);
     
     return (
       <div style={style}>

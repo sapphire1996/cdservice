@@ -21,11 +21,11 @@ const projectReducer =(state=initState, action)=>{
         case 'LIKED_ERROR':
         console.log('created project error', action.err);
             return state;
-        case 'LIKED':
-            console.log('incresing like by one');
+        case 'DISLIKED':
+            console.log('decresing like by one');
             return state;
-        case 'LIKED_ERROR':
-        console.log('created project error', action.err);
+        case 'DISLIKED_ERROR':
+        console.log('disliking error', action.err);
             return state;    
         default:
             return state;

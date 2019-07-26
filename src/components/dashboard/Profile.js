@@ -11,6 +11,7 @@ import App from "../dashboard/Modal";
 class Profile extends Component{
     render(){
         const {profileInfo, auth} = this.props;
+        console.log(profileInfo);
         
         if (!auth.uid) return <Redirect to='/signIn'/>
         return(
@@ -21,17 +22,17 @@ class Profile extends Component{
                     <AdvertForm/>
                     </Accordion>
                     <div className="col s12 m6">
-                    <h5>CDS Profile Data:</h5>
-                    {profileInfo? profileInfo.map((info)=>{
-                        return  <ul key={info.id}>
-                                    <li  className="contain"><p>Name: <span>{info.fullName}</span></p></li>
-                                    <li  className="contain"><p>State Code: <span>{info.stateCode+info.codeNumber}</span></p></li>
-                                    <li  className="contain"><p>Course: <span>{info.course}</span></p></li>
-                                    <li  className="contain"><p>Local Government: <span>{info.localGovt}</span></p></li>
-                                    <li  className="contain"><p>PPA: <span>{info.ppa}</span></p></li>
-                                    <li  className="contain"><p>CDS: <span>{info.cds?info.cds:'You Have Not been assigned a CDS Yet'}</span></p></li>
+                    <h3><strong>CDS Profile Data:</strong></h3>
+                    {profileInfo != 0 ? profileInfo && profileInfo.map((info)=>{
+                        return  <ul key={info.id} className="card">
+                                    <li ><p>Name: <span>{info.fullName}</span></p></li>
+                                    <li ><p>State Code: <span>{info.stateCode+info.codeNumber}</span></p></li>
+                                    <li ><p>Course: <span>{info.course}</span></p></li>
+                                    <li ><p>Local Government: <span>{info.localGovt}</span></p></li>
+                                    <li ><p>PPA: <span>{info.ppa}</span></p></li>
+                                    <li ><p>CDS: <span>{info.cds?info.cds:'You Have Not been assigned a CDS Yet'}</span></p></li>
                                 </ul>
-                        }):<p>Your Data will show up here when your register for CDS</p>
+                        }):<span>Your Data will show up here when your register for CDS</span>
                     }
                     </div>
                 </div>

@@ -65,6 +65,7 @@ export class CreateProject extends Component {
                 <input type='text' id="stateCode" placeholder="AK/18C/1158" onChange={this.onCodeChange} required/>
             </div>
             <div> 
+            <p>Choose an image for your advert(not too big size)</p>
             <input
                type="file"
                className="form-control"
@@ -75,7 +76,9 @@ export class CreateProject extends Component {
                <hr />
                 <b>Preview</b>
                 <br />
-               <PreviewPicture pictureUrl={this.state.pictureUrl}/>
+                <div className="border advertFormPreview">
+               <PreviewPicture pictureUrl={this.state.pictureUrl} height="200px"/>
+               </div>
             <div >
             <button className="btn pink lighten-1 z-depth-0">Post</button>
             </div>
