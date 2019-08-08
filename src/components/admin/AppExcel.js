@@ -10,6 +10,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
 import {deleteRegister} from '../../store/actions/adminAction'
 import XLSX from 'xlsx'
+import Footer from '../layout/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class App extends Component {
   exportFile() {
     let users = [["Full Name", "Course", "Contact","PPA", "State Code", "Local Govt", "Asigned CDS Group"]]
     this.state.users.forEach((user) => {
-      let userArray = [user.authorName, user.course, user.phoneNumber, user.ppa, user.stateCode+user.codeNumber, user.localGovt, user.cds]
+      let userArray = [user.authorName, user.course, user.phoneNumber, user.ppa, user.codeNumber, user.localGovt, user.cds]
       users.push(userArray)
     })
 
@@ -98,7 +99,7 @@ wb.Props.Title = "Insert Title Here";
           {
             Header: "State Code",
             id: "stateCode",  
-            accessor: d => d.stateCode+d.codeNumber
+            accessor: d => d.codeNumber
           },
           {
             Header: "Local Govt",
@@ -116,9 +117,10 @@ wb.Props.Title = "Insert Title Here";
     return (
       <div style={style}>
         <div>
-          <button onClick={deleteRegister}>empty this table</button>
-          <h1>CDS</h1>
-          <button onClick={this.exportFile}>Export to Excel</button>
+          <h1 className="text-center">CDS GROUP REGISTER</h1>
+          <button className="col m4 m-2 btn btn-success btn-lg" onClick={this.exportFile}>Download to Excel Sheet</button>
+          <h5 className="text-center advert pink-text"><strong>MAKE SURE YOU DOWNLOAD THIS DOCUMENT BEFORE YOU EMPTY THE TABLE</strong></h5>
+          <button className="col m4 m-2 btn btn-danger btn-lg" onClick={deleteRegister}>Empty This Table</button>
           <ReactTable
             style={{marginLeft:'-40%', marginRight:'-40%'}}
             data={this.state.users}
@@ -126,6 +128,7 @@ wb.Props.Title = "Insert Title Here";
           />
           <ToastContainer/>
         </div>
+        <Footer/>
       </div>
     );
   }

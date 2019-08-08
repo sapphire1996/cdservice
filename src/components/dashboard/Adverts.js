@@ -13,7 +13,7 @@ const Adverts =(props)=>{
       <div className="card-content">
       <h5 className="formSuccess">You can place your advert here from your profile page</h5>
       <ul className="notifications">
-         {adverts && adverts.map(ad =>{
+         {adverts && adverts.lenght >= 1 ? adverts && adverts.map(ad =>{
              let div;
              if (ad.approved) {
                  div =(
@@ -28,8 +28,8 @@ const Adverts =(props)=>{
                   </li>
              )}
              return div;
+         }):<span className="advert pink-text">Place Adverts here for as low as #200</span>
          }
-         )}
       </ul>
       
       </div>

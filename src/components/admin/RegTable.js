@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
 import { asignCds } from "../../store/actions/adminAction";
+import Footer from '../layout/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class App extends Component {
       ],
       id: '',
       cds: '',
-      isHidden: false
+      isHidden: false,
     }
   }
 
@@ -49,13 +50,13 @@ class App extends Component {
         this.setState({users});
       });
   }
-  //get Local govt
-   lgovt;
-   getLg= (localGovtArea)=>{
-    if(this.props.localGovtList && this.props.localGovtList.length > 0){
-       this.lgovt = this.props.localGovtList.find(list =>list.localGovt === localGovtArea)
-    }
-  }
+    //get Local govt
+    getLg= (localGovtArea)=>{
+     if(this.props.localGovtList && this.props.localGovtList.length > 0){
+        let lgovt = this.props.localGovtList.find(list =>list.localGovt === localGovtArea);
+        return lgovt;
+     }
+   }
 
   handleChange=(e)=>{
     e.preventDefault();
@@ -75,7 +76,6 @@ class App extends Component {
       const heading = editables && editables.map((heading) =>{
       return heading.year + ' BATCH '+ heading.batch +' STREAM '+ heading.stream;
     }) 
-    // const lists= cdsRegLists && cdsRegLists.map(list=>list);
     
     return (
       <div style={style}>
@@ -94,19 +94,18 @@ class App extends Component {
             </thead>
             <tbody>
              {this.state.users && this.state.users.length > 0? this.state.users.map((user) => {
-                 return <tr key={user.identity}>
+                 return  <tr key={user.identity}>
                     <td>{user.stateCode+user.codeNumber}</td>
                     <td>{user.fullName}</td>
                     <td>{user.course}</td>
                     <td>{user.localGovt}</td>
                     <td>{user.ppa}</td>
                     <td><input id={user.identity}  list={user.localGovt} type="text" onChange={this.handleChange}/>
-                    {this.getLg(user.localGovt)}
                     <datalist id={user.localGovt}>
-                    {this.lgovt && this.lgovt.cdsGroup.map((cds)=>{
-                     return <option  key={cds}>{cds}</option>})
-                      }
-                      </datalist>
+                    {this.getLg(user.localGovt) && this.getLg(user.localGovt).cdsGroup.map((cds)=>{
+                    return <option  key={cds}>{cds}</option>})
+                    }
+                    </datalist>
                     </td>
                     {this.state.isHidden && <td><button onClick={this.handleSubmit}>asign</button></td>}
                   </tr>
@@ -115,13 +114,12 @@ class App extends Component {
              </table>
           <ToastContainer/>
         </div>
+        <Footer/>
       </div>
     );
   }
 }
 
-// +"_______"+ (lists &&lists.filter(list=> 
-//   list.localGovt===user.localGovt && list.cds===cds)).length
 const s={
   textAlign:"center"
 }
@@ -131,6 +129,8 @@ const style = {
 }
 
 const mapStateToProps=(state)=>{
+  // console.log(state.firestore.ordered.localGovtList);
+  
   return{
       editables: state.firestore.ordered.editables,
       localGovtList: state.firestore.ordered.localGovtList,

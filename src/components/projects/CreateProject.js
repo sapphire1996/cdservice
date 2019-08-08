@@ -83,6 +83,7 @@ export class CreateProject extends Component {
             <button className="btn pink lighten-1 z-depth-0">Post</button>
             </div>
         </form>
+        {/* <Footer/> */}
       </div>
     )
   }

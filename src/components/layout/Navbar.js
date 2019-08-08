@@ -10,7 +10,7 @@ import M from "materialize-css/dist/js/materialize.min.js";
 const Navbar = (props) =>{
   (function() {
     var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems);  })()
+    var instances = M.Sidenav.init(elems);  })();
     
     const {auth, profile} = props;
     const links = auth.uid ? <SignInLinks profile={profile}/> : <SignOutLinks/>;
@@ -19,7 +19,7 @@ const Navbar = (props) =>{
         <nav className="nav-extended">
         <div className=" container nav-wrapper">
         <Link to="/" className="brand-logo">IBOM KOPA CDS</Link>
-          <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+        <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
         {links}
         </div>
         </nav>

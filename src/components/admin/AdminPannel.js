@@ -7,8 +7,10 @@ import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
 import {Redirect} from 'react-router-dom';
 import SendNotification from './SendNotification';
-import {Link } from 'react-router-dom';
 import 'react-collapsy/lib/index.css';
+import AdminSignUp from '../auth/AdminSignUp';
+import Accordion from 'react-collapsy';
+import AdvertIncome from './AdvertIncome';
 
 class AdminPanel extends Component{
 
@@ -17,19 +19,20 @@ class AdminPanel extends Component{
         if (!auth.uid) return <Redirect to='/signIn'/>
  
            return(
-            <div className="container mt-5 row">
-            <div className="col s12 m6 offset-m1">
+            <div className=" m-5 row">
+            <div className="col s12 m6 l6">
             <Notifications notifications={notifications}/>
+            <AdvertIncome/>
             <Adverts />
             </div>
-            <div className="col s12 m6">
-            <div className="m-2">
-            <Link to="/reg" className="pink lighten-1 btn-small waves-effect m-1">Assign CDS</Link>
-            <Link to="/register" className="pink lighten-1 btn-small waves-effect ">View Registration Record</Link>
-            <Link to="/guildline" className="pink lighten-1 btn-small waves-effect m-1">Project Guidline</Link>
+            <div className="col s12 m6 l6">
+            <div className="mt-5 mb-2">
             </div>
             <SendNotification/>
             <Editable/>
+            <Accordion title="Add admin">
+            <AdminSignUp/>
+            </Accordion>
             </div>
             </div>
         );

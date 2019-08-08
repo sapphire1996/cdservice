@@ -57,6 +57,7 @@ render(){
             </div>
         </div>
       </div>
+      {/* <Footer/> */}
     </div>
     )
   }else{

@@ -18,16 +18,16 @@ handleDeleteAdvert=(e)=>{
 }
 render(){
 const {adverts}= this.props
+
   return (
-    <div className="section">
+    <div className="section border">
     <div className="z-depth-0">
     <div className="card-content">
-    <h4 className="pink-text">Adverts</h4>
+    <h1 className="text-center"><strong>Adverts</strong></h1>
     <ul className="notifications">
-       {adverts && adverts.map(ad =>{
-           return(
-            <li key={ad.id} className="col s12 m12 l5 m-3 border card">
-            <span className="formSuccess">{ad.advertizerName + " just paid for a " + ad.duration + " advert"}</span>
+       {adverts ? adverts.map(ad =>{
+           return <li key={ad.id} className="col s12 m12 l5 m-3 border card">
+            <small className="formSuccess">{ad.advertizerName + " just paid for a " + ad.duration + " day(s) advert"}</small>
             <div className="grey-text note-date">
             {moment(ad.createdAt.toDate()).fromNow()}
             </div>
@@ -36,13 +36,20 @@ const {adverts}= this.props
             <div className="grey-text note-date">
             {moment(ad.createdAt.toDate()).fromNow()}
             </div>
-            {ad.approved?<button id={ad.id}  onClick={this.handleDeleteAdvert}>delete</button>:<button id={ad.id} onClick={this.handleApproveAdvert}>approve</button>}
-            <span className="pink-text">delete this advert once it overdue</span>
+            {ad.approved?<div>
+            <button 
+            id={ad.id} 
+            className="btn pink lighten-1 text-white waves-effect" 
+            onClick={this.handleDeleteAdvert}>delete</button>
+            <p className="pink-text small">this advert will be deleted once it is overdue</p>
+            </div>:<button 
+            id={ad.id}
+            className="btn pink lighten-1 text-white waves-effect" 
+            onClick={this.handleApproveAdvert}>approve</button>}
+            
         </li>
-           )
-       
-       }
-       )}
+           }):<span>no running advert</span>
+           }
     </ul>
     </div>
     </div>

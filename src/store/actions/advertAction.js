@@ -1,7 +1,7 @@
 import { storage } from '../../config/fbConfig';
 
 export const createAdvert= (data)=>{
-    const {product, action, picture, duration} = data;
+    const {product, action, picture, duration, amount} = data;
     return(dispatch, getState, {getFirebase, getFirestore})=>{   
         const firestore = getFirestore();     
         const profile = getState().firebase.profile;
@@ -28,6 +28,7 @@ export const createAdvert= (data)=>{
                         createdAt: new Date(),
                         duration,
                         picture: url,
+                        amountPaid: amount,
                         product
                      }).then(()=>{
                         dispatch({type: 'CREATE_ADVERT', data})
@@ -44,7 +45,8 @@ export const approveAdvert=(id)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         firestore.collection('adverts').doc(id).update({
-            approved: true
+            approved: true,
+            approvalDate: new Date()
         }).then(()=>{
                 dispatch({type: 'APPROVED'});
             }).catch((err)=>{
@@ -57,9 +59,10 @@ export const deleteAdvert=(id)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         firestore.collection('adverts').doc(id).delete().then(()=>{
-                dispatch({type: 'DELECTED'});
+                dispatch({type: 'DELETE_ADVERT', id});
             }).catch((err)=>{
-                dispatch({type: 'DELECTED_ERROR', err})
+                dispatch({type: 'DELETE_ADVERT_ERROR', err})
             })
         }
 }
+

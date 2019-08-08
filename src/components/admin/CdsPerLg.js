@@ -68,9 +68,7 @@ handleSubmit=(e)=>{
 }
 }
 
-const mapStateToProps=(state)=>{
-  console.log(state);
-  
+const mapStateToProps=(state)=>{  
   return{
     cdsGroupList: state.firestore.ordered.cdsGroups,
     localGovtList: state.firestore.ordered.localGovtList,

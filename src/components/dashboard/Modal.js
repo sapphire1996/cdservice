@@ -39,7 +39,7 @@ const customStyles = {
       const { guildline} = this.props; 
       return (
         <div>
-          <button onClick={this.handleOpenModal}>personal CDS Project Guildlines</button>
+          <button className="btn btn-small m-2" onClick={this.handleOpenModal}>personal CDS Project Guildlines</button>
           <ReactModal 
              isOpen={this.state.showModal}
              contentLabel="Project Guidline"
@@ -48,13 +48,13 @@ const customStyles = {
           <h4 className="card-title">Personal CDS Project Guidline</h4>
           {guildline && guildline.map(guide =>{
            return(
-                <div className="grey-text note-date" key={guide.id}>
-                <h5>{guide.content}</h5>
+                <div className="grey-text note-date container" key={guide.id}>
+                <div>{guide.content}</div>
                 </div>
            )}
        )}
           <form>
-            <button onClick={this.handleCloseModal}>Ok, I got It</button>
+            <button className="btn btn-small pink" onClick={this.handleCloseModal}>Ok, I got It</button>
           </form>
           </ReactModal>
         </div>

@@ -16,6 +16,7 @@ import EditGuidline from './components/admin/EditGuidline';
 import RegTable from './components/admin/RegTable';
 import Profile from './components/dashboard/Profile';
 import ResetPassword from "./components/auth/PasswordReset";
+import Footer from './components/layout/Footer';
 
 
 
@@ -43,6 +44,7 @@ class App extends Component {
          <Route path='/resetpassword' component={ResetPassword}/>
          <Route component={NotFound}/>
        </Switch>
+       <Footer/>
       </div>
       </BrowserRouter>
     );

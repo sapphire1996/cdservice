@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import {compose} from 'redux';
 import {Redirect} from 'react-router-dom';
-import {addCourse} from "../../store/actions/adminAction";
+import {addCourse, deleteCourse} from "../../store/actions/adminAction";
 
 class CdsPerLg extends Component {
   state={
@@ -19,6 +19,10 @@ handleChange=(e)=>{
 handleSubmit=(e)=>{
     e.preventDefault();
     this.props.addCourse(this.state);
+}
+handleDeleteCourse=(e)=>{
+  let id=e.target.id;
+  this.props.deleteCourse(id)
 }
   render(){
   const id = this.props.match.params.id;
@@ -47,7 +51,7 @@ handleSubmit=(e)=>{
            return (<li key={list.id} className="col">
             <div className="chip pink lighten-4">
             {list.name}
-            <i className="close fas fa-times"></i>
+            <i id={list.id} onClick={this.handleDeleteCourse} className="close fas fa-times"></i>
             </div>
           </li>)
         })}
@@ -73,6 +77,7 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps=(dispatch)=>{
   return{
     addCourse: (course)=> dispatch(addCourse(course)),
+    deleteCourse: (id)=> dispatch(deleteCourse(id))
   }
 }
 export default compose(

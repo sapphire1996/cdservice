@@ -100,6 +100,42 @@ const adminReducer =(state=initState, action)=>{
             ...state,
             error: 'asigning Failed'
         }
+        case 'DELETE_COURSE':
+        console.log('Deleted course', action.id);
+        return{
+            ...state,
+            error: null
+        }
+        case 'DELETE_COURSE_ERROR':
+        console.log('error deleting course', action.err);
+        return{
+            ...state,
+            error: 'deleting course Failed'
+        }
+        case 'DELETE_LG':
+        console.log('Deleted local Govt', action.id);
+        return{
+            ...state,
+            error: null
+        }
+        case 'DELETE_LG_ERROR':
+        console.log('error deleting local govt', action.err);
+        return{
+            ...state,
+            error: 'deleting local govt Failed'
+        }
+        case 'DELETE_CDS':
+        console.log('Deleted CDS', action.id);
+        return{
+            ...state,
+            error: null
+        }
+        case 'DELETE_CDS_ERROR':
+        console.log('error deleting CDS', action.err);
+        return{
+            ...state,
+            error: 'deleting CDS Failed'
+        }
         default:
             return state;
     }

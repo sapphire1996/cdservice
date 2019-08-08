@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { addLocalGovt } from "../../store/actions/adminAction";
+import { addLocalGovt, deleteLocalGovt} from "../../store/actions/adminAction";
 import {Link } from 'react-router-dom';
 
 
@@ -20,9 +20,13 @@ handleSubmit=(e)=>{
     e.preventDefault();
     this.props.addLocalGovt(this.state)
 }
+handleDeleteLg=(e)=>{
+  e.preventDefault();
+  let id=e.target.id;
+  this.props.deleteLocalGovt(id)
+}
 render(){
 const {localGovtList}= this.props
-// console.log(localGovtList)
   return (
     <div className="card">
     <form onSubmit={this.handleSubmit}>
@@ -37,8 +41,9 @@ const {localGovtList}= this.props
         return(
         <li key={lglist.id} >
         <Link to={'/cds/' + lglist.id}>
-          <div className="contain">
-            <button className="cds" id={lglist.id} >{lglist.localGovt}</button>
+          <div className="contain chip">
+            <button className="cds col l10 m8 s8" id={lglist.id} >{lglist.localGovt}</button>
+            <i id={lglist.id} onClick={this.handleDeleteLg}  className="close fas fa-times col l2 m4 s4">delete</i>
           </div>
         </Link>
         </li>
@@ -51,14 +56,14 @@ const {localGovtList}= this.props
 }
 }
 const mapStateToProps=(state)=>{
-  // console.log(state);
   return{
     localGovtList: state.firestore.ordered.localGovtList,
   }
 }
 const mapDispatchToProps=(dispatch)=>{
   return{
-    addLocalGovt: (localgovt)=> dispatch(addLocalGovt(localgovt))
+    addLocalGovt: (localgovt)=> dispatch(addLocalGovt(localgovt)),
+    deleteLocalGovt: (id)=> dispatch(deleteLocalGovt(id))
   }
 }
 export default compose(

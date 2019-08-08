@@ -75,7 +75,7 @@ validate = () => {
   }
 
   if (!this.state.codeNumber) {
-    stateCodeError = "ops! I think you forgot your state code number";
+    stateCodeError = "ops! I think you forgot your state code";
     this.setState({stateCodeError})
   }else{
     this.setState({stateCodeError: ""})
@@ -109,6 +109,7 @@ handleChange=(e)=>{
     const courses =this.props.courses;
     const cdsGroups = this.props.cdsGroups;
 
+    //asign cds automatically provided the there is
     let promise = new Promise(function(resolve, reject) {
       if(course){
         asignCds=((course)=>{
@@ -223,7 +224,7 @@ handleChange=(e)=>{
         </select>
         <div className="formError">
             {this.state.localGovtError}
-          </div>
+        </div>
           <select 
             ref="userInput" 
             id="course" 
@@ -239,17 +240,14 @@ handleChange=(e)=>{
         </select>
         <div className="formError">
             {this.state.courseError}
-          </div>
-        <div className="row">
-            {editables && editables.map((code) =>{
-                return  <h4 name="stateCode" key={code.id}><strong>{code.scode+'/'+code.bcode+'/'}</strong></h4>;
-              })
-            }
+        </div>
+        <div>
+        <span htmlFor='codeNumber '>StateCode:</span>
           <input 
             className="col-3" 
             id="codeNumber" 
-            placeholder="Code Number" 
-            type="number"
+            placeholder="AK/18C/1158" 
+            type="text"
             value={this.state.codeNumber}
             onChange={this.handleChange}
           />
@@ -266,7 +264,6 @@ handleChange=(e)=>{
   }
 }
 const mapStateToProps=(state)=>{
-    // console.log(state);
   return{
     auth: state.firebase.auth,
     editables: state.firestore.ordered.editables,

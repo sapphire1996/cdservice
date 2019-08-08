@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { addCdsGroup } from "../../store/actions/adminAction";
+import { addCdsGroup, deleteCdsGroup } from "../../store/actions/adminAction";
 import {Link } from 'react-router-dom';
 
 class CDSGroup extends Component{
@@ -19,6 +19,13 @@ handleSubmit=(e)=>{
     e.preventDefault();
     this.props.addCdsGroup(this.state)
 }
+
+handleDeleteCds=(e)=>{
+  e.preventDefault();
+  let id=e.target.id;
+  this.props.deleteCdsGroup(id)
+}
+
 render(){
 const {cdsGroupList}= this.props
   return (
@@ -35,8 +42,9 @@ const {cdsGroupList}= this.props
         return(
           <li  key={list.id} >
           <Link to={'/course/' + list.id}>
-        <div className="contain" >
-          <button className="cds" id={list.id} >{list.cdsGroup}</button>
+        <div className="contain chip" >
+          <button className="cds col l10 m8 s8" id={list.id} >{list.cdsGroup}</button>
+          <i id={list.id} onClick={this.handleDeleteCds}  className="close fas fa-times col l2 m4 s4">delete</i>
         </div>
         </Link>
         </li>
@@ -49,14 +57,14 @@ const {cdsGroupList}= this.props
 }
 }
 const mapStateToProps=(state)=>{
-  // console.log(state);
   return{
     cdsGroupList: state.firestore.ordered.cdsGroups,
   }
 }
 const mapDispatchToProps=(dispatch)=>{
   return{
-    addCdsGroup: (cds)=> dispatch(addCdsGroup(cds))
+    addCdsGroup: (cds)=> dispatch(addCdsGroup(cds)),
+    deleteCdsGroup: (id)=> dispatch(deleteCdsGroup(id))
   }
 }
 export default compose(

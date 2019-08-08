@@ -57,11 +57,11 @@ export class CreateProject extends Component {
    let amt = e.target.value
   this.setState({ amount : Number(amt)});
   if(amt==="200"){
-    this.setState({ duration : "1 DAY"});
+    this.setState({ duration : 1});
   }else if(amt==="500"){
-    this.setState({ duration : "1 WEEK"});
+    this.setState({ duration : 7});
   }else{
-    this.setState({ duration : "1 MONTH"});
+    this.setState({ duration : 30});
   }
  }
  onEmailchange=(e)=>{
@@ -123,7 +123,7 @@ export class CreateProject extends Component {
                   onChange={this.onContentChange} />
             </div>
             <div >
-                <label htmlFor='content'>Advertizer Email</label>
+                <label htmlFor='email'>Advertizer Email</label>
                 <input
                   type='text' id="email"
                   placeholder="awesome@you.com" 

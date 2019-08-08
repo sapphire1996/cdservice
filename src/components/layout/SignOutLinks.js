@@ -2,9 +2,11 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 const SignOutLinks = () => {
+    
+
     return (
-<div>
-        <ul className = "right" >
+    <div>      
+        <ul className = "right hide-on-med-and-down" >
         <li >
         < NavLink to = "/signin" >LogIn </NavLink>
         </li> 
@@ -12,16 +14,16 @@ const SignOutLinks = () => {
         < NavLink to = "/signup" >SignUp</NavLink>
         </li> 
         </ul> 
-        <ul className="sidenav" id="mobile-demo">
+
+        <ul id="slide-out" className="sidenav" >
         <li >
         < NavLink to = "/signin" >LogIn </NavLink>
         </li> 
         <li>
         < NavLink to = "/signup" >SignUp</NavLink>
         </li> 
-        
-       </ul>
-      </div>
+        </ul> 
+    </div>
     )
 }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Form from '../admin/Form';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import Footer from '../layout/Footer';
 
 class Registration extends Component{
 
@@ -21,6 +22,7 @@ class Registration extends Component{
                     <Form/>
                     </div>
                 </div>
+                <Footer/>
             </div>
         );
     }

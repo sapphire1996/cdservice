@@ -28,6 +28,17 @@ export const addCourse= (course)=>{
     }
 };
 
+export const deleteCourse=(id)=>{
+    return(dispatch, getState, {getFirebase, getFirestore})=>{
+        const firestore = getFirestore();
+        firestore.collection('courses').doc(id).delete().then(()=>{
+                dispatch({type: 'DELETE_COURSE', id});
+            }).catch((err)=>{
+                dispatch({type: 'DELETE_COURSE_ERROR', err})
+            })
+        }
+}
+
 export const addCdsGroup= (cds)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
@@ -44,6 +55,18 @@ export const addCdsGroup= (cds)=>{
         
     }
 };
+
+export const deleteCdsGroup=(id)=>{
+    return(dispatch, getState, {getFirebase, getFirestore})=>{
+        const firestore = getFirestore();
+        firestore.collection('cdsGroups').doc(id).delete().then(()=>{
+                dispatch({type: 'DELETE_CDS', id});
+            }).catch((err)=>{
+                dispatch({type: 'DELETE_CDS_ERROR', err})
+            })
+        }
+}
+
 export const addLocalGovt= (localgovt)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
@@ -60,6 +83,18 @@ export const addLocalGovt= (localgovt)=>{
         
     }
 };
+
+export const deleteLocalGovt=(id)=>{
+    return(dispatch, getState, {getFirebase, getFirestore})=>{
+        const firestore = getFirestore();
+        firestore.collection('localGovtList').doc(id).delete().then(()=>{
+                dispatch({type: 'DELETE_LG', id});
+            }).catch((err)=>{
+                dispatch({type: 'DELETE_LG_ERROR', err})
+            })
+        }
+}
+
 export const addLocalGovtCds= (localgovtId, localgovtcds)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
@@ -146,3 +181,4 @@ export const deleteRegister=()=>{
         })
     }
 }
+

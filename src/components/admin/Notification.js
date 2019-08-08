@@ -4,9 +4,9 @@ import moment from 'moment';
 const Notifications =(props)=>{
     const {notifications} = props;
 return(
-    <div className="card z-depth-0">
+    <div className="card border z-depth-0">
     <details className="card-content">
-    <summary className="card-title">Notifications</summary>
+    <summary className="card-title">Notifications<i className="pink-text material-icons right">notifications_active</i></summary>
     <ul className="notifications">
        {notifications && notifications.map(item =>{
            return(

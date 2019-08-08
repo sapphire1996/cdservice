@@ -65,7 +65,6 @@ handleSubmit=(e)=>{
   }
 }
 const mapStateToProps=(state)=>{
-  // console.log(state);
   return{
     error: state.admin.error,
   }

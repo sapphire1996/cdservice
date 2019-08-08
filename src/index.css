@@ -173,3 +173,27 @@ td, th {
   /*Notice the margin doesn't do anythign to our display */
   margin: 100px;
 }
+.advert {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+.sidenav li {
+  line-height: 15px;
+}
+
+
+
+.love{
+  font-size: 16px;
+}
+.name{
+  text-decoration: underline;
+}
+.name:hover { 
+  background-color: pink;
+}
