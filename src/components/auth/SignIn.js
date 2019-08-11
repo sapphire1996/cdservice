@@ -46,7 +46,7 @@ export class SignIn extends Component {
             </div>
             <div className='input-field'>
             <button className="btn pink lighten-1 z-depth-0">Log In</button>
-            <span className="m-3">Don't have an account? <Link to = "/signup" >Sign Up</Link></span>
+            <span className="m-1">Don't have an account? <Link to = "/signup" >SignUp</Link></span>
             <div className="center red-text">
             {authError ? <p>{authError}</p> : null}
             </div>
