@@ -119,7 +119,7 @@ const SignInLinks = (props) => {
                 <li >
                 < NavLink to = "/reg" >Assign CDS</NavLink> 
             </li> }
-                { userUid && user && user.isAdmin === false  | !done ?
+                { userUid && user && user.isAdmin === false  && !done ?
                 <li >
                 < NavLink to = "/registration" > Register CDS</NavLink> 
                 </li> :

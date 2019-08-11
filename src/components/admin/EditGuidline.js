@@ -29,11 +29,11 @@ this.setState({ content: ''})
             copy the pevious content and paste to the editor, 
             then make changes. OR, start writing a new one.</h5></div>
             <div className="row mt-3">
-                <div className="col s12 m6">
+                <div className="col-md-6 col-sm-12">
                     <textarea className="guild" value={this.state.content} id="content" onChange={this.handleChange}/>
                     <button onClick={this.handleUpdate}>Update</button>
                 </div>
-                <div className="col s12 m5 offset-m1">
+                <div className="col-md-6 col-sm-12 card-panel">
                     <ProjectGuidline cdsProjectGuide={guildline}/>
                 </div>
             </div>
