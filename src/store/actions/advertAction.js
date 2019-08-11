@@ -1,7 +1,7 @@
 import { storage } from '../../config/fbConfig';
 
 export const createAdvert= (data)=>{
-    const {product, action, picture, duration, amount} = data;
+    const {product, action, picture, duration, amount, displayName} = data;
     return(dispatch, getState, {getFirebase, getFirestore})=>{   
         const firestore = getFirestore();     
         const profile = getState().firebase.profile;
@@ -23,6 +23,7 @@ export const createAdvert= (data)=>{
                     firestore.collection('adverts').add({
                         action,
                         advertizerName: profile.firstName+' '+profile.lastName,
+                        displayName,
                         approved: false,
                         authorId: authorId,
                         createdAt: new Date(),

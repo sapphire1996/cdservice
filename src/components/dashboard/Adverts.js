@@ -1,37 +1,35 @@
-import PreviewPicture from "../projects/PreviewPicture";
 import React from 'react';
+import Slider from 'react-animated-slider';
+import 'react-animated-slider/build/horizontal.css';
 import moment from 'moment';
 
 const Adverts =(props)=>{
   const {adverts} = props;
- 
+ console.log(adverts);
   
     return (
-      
-      <div className="section">
+      <div className="section ">
       <div className=" z-depth-0">
       <div className="card-content">
-      <h5 className="formSuccess">You can place your advert here from your profile page</h5>
+      <p className="formSuccess text-center detail head">You can place your advert here from your profile page</p>
       <ul className="notifications">
-         {adverts && adverts.lenght >= 1 ? adverts && adverts.map(ad =>{
-             let div;
-             if (ad.approved) {
-                 div =(
-                  <li key={ad.id} className="col s12 m12 l5 m-3 border card">
-                      <p className="pink-text">{ad.product}</p>
-                      <PreviewPicture pictureUrl={ad.picture} height="100px" />
-                      <p>Call to Action: <span className="pink-text">{ad.action}</span></p>
-                      <p>By: <span className="pink-text">{ad.advertizerName} </span></p>
-                      <div className="grey-text note-date">
-                      {moment(ad.createdAt.toDate()).fromNow()}
-                      </div>
-                  </li>
-             )}
-             return div;
-         }):<span className="advert pink-text">Place Adverts here for as low as #200</span>
-         }
+     {/* direction="vertical"   */}
+    <Slider autoplay={1000}>
+        {adverts && adverts.length >= 1 ? adverts && adverts.map((ad, index) => (
+          <div
+            key={index}
+            style={{ background: `url('${ad.picture}') no-repeat center center`, width:`100%`}}
+          >
+            <div className="center">
+              <h1 className="pink-text detail"><strong>{ad.product}</strong></h1>
+              <h2 className="advertizer"><strong>By {ad.displayName}</strong></h2>
+              <h3><strong><span role="img">👉</span><span className="pink-text detail">{ad.action}</span></strong></h3>
+              <div className="grey-text note-date"><strong>{moment(ad.createdAt.toDate()).fromNow()}</strong></div>
+            </div>
+          </div>
+        )):<h4 className="advert pink-text text-center detail"><strong>Place Adverts here for as low as #200</strong></h4>}
+      </Slider>
       </ul>
-      
       </div>
       </div>
   </div>
@@ -39,3 +37,5 @@ const Adverts =(props)=>{
 }
 
 export default Adverts
+
+  

@@ -8,6 +8,8 @@ import {Redirect} from 'react-router-dom';
 import App from "../dashboard/Modal";
 import moment from 'moment';
 import firebase from 'firebase/app';
+import {Link} from 'react-router-dom';
+import M from "materialize-css/dist/js/materialize.min.js";
 
 class Dashboard extends Component{
    
@@ -26,6 +28,14 @@ class Dashboard extends Component{
           return Math.floor((utc2 - utc1) / _MS_PER_DAY);
         };
 
+        (function() {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {direction: 'left'}); 
+            var elems = document.querySelectorAll('.tooltipped');
+            var instances = M.Tooltip.init(elems)
+        })();
+
+
         (()=>{
             if(this.props.adverts && this.props.adverts.length > 0){
               this.props.adverts.filter(list =>dateDiffInDays(new Date(moment(list.approvalDate && list.approvalDate.toDate()).format()), new Date()) >= list.duration)
@@ -40,16 +50,24 @@ class Dashboard extends Component{
 
         if (!auth.uid) return <Redirect to='/signIn'/>
         return(
-            <div className="dashboard container">
+            <div className="dashboard container ">
             <App/>
                 <div className="row">
-                    <div className="col s12 m6 l6">
-                      <ProjectList projects={projects}/>
-                    </div>
-                    <div className="col s12 m6 l6">
-                        <Adverts adverts={adverts}/>
-                    </div>
+                <div className="col-md-6 col-sm-12 card-panel" >
+                <Adverts  adverts={adverts}/>
                 </div>
+                <hr/>
+                <div  className="col-md-6 col-sm-12">
+                <ProjectList  projects={projects} />
+                </div>
+                </div>
+                <Link to="/post">
+                <div className=" fixed-action-btn">
+                <a href="#" className="btn-floating tooltipped btn-large pink add-btn" data-position="left" data-tooltip="Add CDS Project">
+                <i className="material-icons">add</i> 
+                </a>
+                </div>
+                </Link> 
             </div>
         );
     }

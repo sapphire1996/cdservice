@@ -26,7 +26,13 @@ const projectReducer =(state=initState, action)=>{
             return state;
         case 'DISLIKED_ERROR':
         console.log('disliking error', action.err);
-            return state;    
+            return state;  
+        case 'DELETE_PROJECT':
+        console.log('Deleted project', action.id);
+            return state;  
+        case 'DELETE_PROJECT_ERROR':
+        console.log('error deleting project', action.err);
+            return state;  
         default:
             return state;
     }

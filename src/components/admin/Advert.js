@@ -14,7 +14,7 @@ this.props.approveAdvert(id)
 }
 handleDeleteAdvert=(e)=>{
   let id=e.target.id;
-  this.props.deleteAdvert(id)
+  this.props.deleteAdvert(id);
 }
 render(){
 const {adverts}= this.props

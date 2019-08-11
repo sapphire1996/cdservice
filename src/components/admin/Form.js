@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
 import { submitForm } from "../../store/actions/formAction";
-// import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import { withRouter} from 'react-router-dom';
 
 
@@ -155,7 +155,9 @@ handleChange=(e)=>{
   }
 
   render() {
-    const {courses, editables, localGovtList}= this.props  
+    const {courses, editables, localGovtList, auth}= this.props  ;
+    if (!auth.uid) return <Redirect to='/signIn'/>
+    
     return (
       <div className="card z-depth-0 text-center">
       {editables && editables.map((heading) =>{

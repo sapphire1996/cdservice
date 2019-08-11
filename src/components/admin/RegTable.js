@@ -7,10 +7,10 @@ import 'firebase/firestore';
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
+import {Redirect} from 'react-router-dom';
 import { asignCds } from "../../store/actions/adminAction";
-import Footer from '../layout/Footer';
 
-class App extends Component {
+class RegTable extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -72,7 +72,9 @@ class App extends Component {
   this.getUsers();
 }
   render() {  
-    const {editables}= this.props  
+    const {editables, auth}= this.props;
+    if (!auth.uid) return <Redirect to='/signIn'/>
+
       const heading = editables && editables.map((heading) =>{
       return heading.year + ' BATCH '+ heading.batch +' STREAM '+ heading.stream;
     }) 
@@ -114,7 +116,6 @@ class App extends Component {
              </table>
           <ToastContainer/>
         </div>
-        <Footer/>
       </div>
     );
   }
@@ -129,12 +130,12 @@ const style = {
 }
 
 const mapStateToProps=(state)=>{
-  // console.log(state.firestore.ordered.localGovtList);
   
   return{
-      editables: state.firestore.ordered.editables,
-      localGovtList: state.firestore.ordered.localGovtList,
-      cdsRegLists: state.firestore.ordered.cdsRegLists
+    auth: state.firebase.auth,
+    editables: state.firestore.ordered.editables,
+    localGovtList: state.firestore.ordered.localGovtList,
+    cdsRegLists: state.firestore.ordered.cdsRegLists
   }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -149,4 +150,4 @@ export default compose(
       {collection: 'localGovtList'},
       {collection: 'cdsRegLists'}
   ])
-)(App)
+)(RegTable)

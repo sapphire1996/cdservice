@@ -29,9 +29,6 @@ const SignInLinks = (props) => {
        return userId === userUid;
       });
 
-    // const handleClick=()=>{
-
-    // }
 
     return (
         <div>
@@ -56,7 +53,7 @@ const SignInLinks = (props) => {
                     < NavLink to = "/post" > New Project </NavLink> 
                 </li> }
 
-                {!done | userUid && user && user.isAdmin === false?
+                { userUid && user && user.isAdmin === false  | !done ?
                 <li >
                 < NavLink to = "/registration" > Register CDS</NavLink> 
                 </li> :
@@ -122,7 +119,7 @@ const SignInLinks = (props) => {
                 <li >
                 < NavLink to = "/reg" >Assign CDS</NavLink> 
             </li> }
-                {!done | userUid && user && user.isAdmin === false?
+                { userUid && user && user.isAdmin === false  | !done ?
                 <li >
                 < NavLink to = "/registration" > Register CDS</NavLink> 
                 </li> :
@@ -139,7 +136,7 @@ const SignInLinks = (props) => {
                     <NavLink to="#"><button className="signout mr-3" onClick={props.signOut}>Log Out</button></NavLink>
                 </li> 
                 <li>
-                    <NavLink className="dropdown-trigger" to="#" data-target="dropdown2">Notifications<i className="pink material-icons right">notifications_active</i></NavLink>
+                    <NavLink className="dropdown-trigger" to="#" data-target="dropdown2">Notifications<i className="pink-text material-icons right">notifications_active</i></NavLink>
                 </li>
             </ul>
       </div>

@@ -85,6 +85,7 @@ code {
   transform: translateX(-50%);
   font-size: 18px;
 }
+
 .third:before {
   content: "-";
   position: absolute;
@@ -186,8 +187,6 @@ td, th {
   line-height: 15px;
 }
 
-
-
 .love{
   font-size: 16px;
 }
@@ -196,4 +195,38 @@ td, th {
 }
 .name:hover { 
   background-color: pink;
+}
+/* .footer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+} */
+@font-face{
+  font-family: advertizers;
+  src:url(../src/fonts/Lobster_1.3.otf)
+}
+@font-face{
+  font-family: details;
+  src:url(../src/fonts/KaushanScript-Regular.otf)
+}
+.advertizer{
+  font-family: advertizers;
+  font-size: 20px
+}
+.detail{
+  font-family: details;
+  font-size: 30px
+}
+@media screen and (max-width: 600px) {
+  .advertizer{
+    font-size: 15px
+  }
+  .detail{
+    font-size: 20px
+  }
+}
+.head{
+  text-decoration: underline;
+
 }

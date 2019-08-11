@@ -7,13 +7,13 @@ import {addLocalGovtCds} from "../../store/actions/adminAction";
 
 class CdsPerLg extends Component {
   state={
-    name: '',
-    cdsId: ''
+    cdsGroup: '',
+    // cdsId: '',
 }
 handleChange=(e)=>{
     this.setState({
-        cdsGroup: e.target.value,
-        cdsId: e.target.id
+        [e.target.id]: e.target.value,
+        // cdsId: e.target.id
     } )
 }
 handleSubmit=(e)=>{
@@ -34,11 +34,12 @@ handleSubmit=(e)=>{
     <div>
     {lgovt && lgovt !==null?<h1>{lgovt.localGovt}</h1>:null}
     </div>
-    <form onSubmit={this.handleSubmit}>
+    <form onSubmit={this.handleSubmit} className="card-panel">
       <div className="row">
       <select 
             ref="userInput" 
             id="cdsGroup" 
+            className="m-3"
             defaultValue="Add CDS to this Local goverment"
             onChange={this.handleChange} required>
             <option disabled>Add CDS to this Local goverment</option>
@@ -49,9 +50,10 @@ handleSubmit=(e)=>{
               })
             }
         </select>
-        <button className="btn-small btn-outline-primary waves-effect col-2">Add</button>
+        <button className="btn-small btn-outline-primary waves-effect col-3 text-center">Add</button>
     </div>
     </form>
+    <p>Make Sure to delete any duplicate CDS</p>
     <div>
     {lgovt && lgovt !==null?<ul className="row">
       {lgovt.cdsGroup && lgovt.cdsGroup.map(cds=>{

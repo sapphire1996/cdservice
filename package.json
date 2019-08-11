@@ -10,6 +10,7 @@
     "nodemailer": "^6.3.0",
     "react": "^16.4.1",
     "react-accessible-accordion": "^3.0.0",
+    "react-animated-slider": "^1.1.4",
     "react-collapsy": "0.0.10",
     "react-dom": "^16.4.1",
     "react-modal": "^3.8.1",

@@ -9,8 +9,8 @@ const ProjectSummary =({project})=>{
         <div className="border">
         {project.picture?<PreviewPicture pictureUrl={project.picture} height="200px"/>:null}
         </div>
-            <span className="card-title">{project.title}</span>
-            <p>Posted by {project.authorFullName} {project.stateCode}</p>
+            <span className="card-title advertizer">{project.title}</span>
+            <p ><strong>Posted by {project.authorFullName} {project.stateCode}</strong></p>
             <p className="grey-text">{moment(project.createdAt.toDate()).calendar()}</p>
             <h4 className="formSuccess"><strong>{project.likeCount>1?project.likeCount + " likes":project.likeCount + " like"}</strong></h4>
         </div>

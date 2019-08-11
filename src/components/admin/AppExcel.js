@@ -8,9 +8,9 @@ import 'firebase/firestore';
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
+import {Redirect} from 'react-router-dom';
 import {deleteRegister} from '../../store/actions/adminAction'
 import XLSX from 'xlsx'
-import Footer from '../layout/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -67,7 +67,9 @@ wb.Props.Title = "Insert Title Here";
   
 
   render() {  
-    const {editables, deleteRegister}= this.props  
+    const {editables, deleteRegister, auth}= this.props;
+    if (!auth.uid) return <Redirect to='/signIn'/>
+  
     const heading = editables && editables.map((heading) =>{
       return heading.year + ' BATCH '+ heading.batch +' STREAM '+ heading.stream;
     })  
@@ -128,7 +130,6 @@ wb.Props.Title = "Insert Title Here";
           />
           <ToastContainer/>
         </div>
-        <Footer/>
       </div>
     );
   }
@@ -143,6 +144,7 @@ const mapStateToProps=(state)=>{
   console.log(state);
   return{
       editables: state.firestore.ordered.editables,
+      auth: state.firebase.auth,
   }
 }
 const mapDispatchToProps=(dispatch)=>{

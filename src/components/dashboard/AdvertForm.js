@@ -11,6 +11,7 @@ export class CreateProject extends Component {
     super(props);
     this.state = {
       product: "",
+      displayName: "",
       action: "",
       picture: null,
       pictureUrl: null,
@@ -23,7 +24,6 @@ export class CreateProject extends Component {
       submited: false
     };
   }
-   
  
   callback = (response) => {
     if(response.success ||response.data.data.status ==="successful"){
@@ -44,7 +44,6 @@ export class CreateProject extends Component {
 
     for( let i=0; i < 10; i++ )
       text += possible.charAt(Math.floor(Math.random() * possible.length));
-
         return text;
   }
   onTitleChange= (e) =>{
@@ -52,6 +51,9 @@ export class CreateProject extends Component {
  }
  onContentChange =(e) =>{
     this.setState({ action : e.target.value});
+ }
+ onDisplayNameChange=(e)=>{
+  this.setState({ displayName : e.target.value});
  }
  onAmountChange=(e)=>{
    let amt = e.target.value
@@ -86,6 +88,7 @@ export class CreateProject extends Component {
       this.setState({
         product: "",
         action: "",
+        displayName: "",
         picture: null,
         pictureUrl: null,
         email: "", 
@@ -111,7 +114,19 @@ export class CreateProject extends Component {
                  id="product" 
                  placeholder="interest in this 6 inches bed for #4500?" 
                  value={this.state.product}
-                 onChange={this.onTitleChange}/>
+                 onChange={this.onTitleChange}
+                 maxLength="50"
+                 required/>
+            </div>
+            <div >
+                <label htmlFor='title'>Display Name</label>
+                <input 
+                type='text'
+                 id="displayName" 
+                 value={this.state.displayName}
+                 onChange={this.onDisplayNameChange}
+                 maxLength="25"
+                 required/>
             </div>
             <div >
                 <label htmlFor='content'>Call To Action</label>
@@ -120,7 +135,8 @@ export class CreateProject extends Component {
                   id="action" 
                   placeholder="call: 09145455840 now!" 
                   value={this.state.action}
-                  onChange={this.onContentChange} />
+                  onChange={this.onContentChange} 
+                  required/>
             </div>
             <div >
                 <label htmlFor='email'>Advertizer Email</label>
@@ -128,7 +144,8 @@ export class CreateProject extends Component {
                   type='text' id="email"
                   placeholder="awesome@you.com" 
                   value={this.state.email}
-                  onChange={this.onEmailchange} />
+                  onChange={this.onEmailchange} 
+                  required/>
             </div>
             <div>
               <p>Choose an image for your advert(not too big size)</p>

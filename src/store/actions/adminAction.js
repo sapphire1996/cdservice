@@ -99,7 +99,7 @@ export const addLocalGovtCds= (localgovtId, localgovtcds)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
             firestore.collection('localGovtList').doc(localgovtId).update({
-                cdsGroup:  firestore.FieldValue.arrayUnion(localgovtcds) 
+                cdsGroup:  firestore.FieldValue.arrayUnion(localgovtcds),
         }).then(()=>{
             dispatch({type: 'LOCAL_GOVT_CDS', localgovtcds})
 
