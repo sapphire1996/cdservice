@@ -202,6 +202,9 @@ td, th {
   right: 0;
   bottom: 1px;
 } */
+.auth{
+  height: 100vh;
+}
 @font-face{
   font-family: advertizers;
   src:url(../src/fonts/Lobster_1.3.otf)
@@ -228,5 +231,4 @@ td, th {
 }
 .head{
   text-decoration: underline;
-
 }

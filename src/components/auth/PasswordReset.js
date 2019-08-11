@@ -20,7 +20,7 @@ export class PasswordReset extends Component {
     const {authError, auth}= this.props
     if(auth.uid) return <Redirect to='/'/>
     return (
-      <div className="container">
+      <div className="container auth">
         <form onSubmit={this.handleSubmit} className="white">
             <h5 className="grey-text text-darken-3">Reset Password</h5>
             <div className="input-field">
