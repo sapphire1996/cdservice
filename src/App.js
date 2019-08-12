@@ -18,9 +18,6 @@ import Profile from './components/dashboard/Profile';
 import ResetPassword from "./components/auth/PasswordReset";
 import Footer from './components/layout/Footer';
 
-
-
-
 class App extends Component {
   render() {
     return (
