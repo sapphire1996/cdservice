@@ -5,7 +5,6 @@ import moment from 'moment';
 
 const Adverts =(props)=>{
   const {adverts} = props;
- console.log(adverts);
   
     return (
       <div className="section ">
@@ -23,7 +22,7 @@ const Adverts =(props)=>{
             <div className="center">
               <h1 className="pink-text detail"><strong>{ad.product}</strong></h1>
               <h2 className="advertizer"><strong>By {ad.displayName}</strong></h2>
-              <h3><strong><span role="img">👉</span><span className="pink-text detail">{ad.action}</span></strong></h3>
+              <h3><strong><span role="img" aria-label="emoji">👉</span><span className="pink-text detail">{ad.action}</span></strong></h3>
               <div className="grey-text note-date"><strong>{moment(ad.createdAt.toDate()).fromNow()}</strong></div>
             </div>
           </div>

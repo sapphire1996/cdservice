@@ -55,7 +55,7 @@ class Profile extends Component{
                     }
                     </div>
                     <div className="col-md-6 col-sm-12">
-                    {project?<h3><strong>Your Personal CDS Project</strong></h3>:null}
+                    {project?<h3 className="text-center mt-5 detail head formSuccess">Personal CDS Projects</h3>:null}
                     <ul className="project-list section">
                       {project && project.map(prjt=>{
                           return(

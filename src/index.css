@@ -232,3 +232,6 @@ td, th {
 .head{
   text-decoration: underline;
 }
+p{
+  margin-top: 20px;
+}

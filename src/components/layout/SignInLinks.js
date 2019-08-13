@@ -19,7 +19,7 @@ const SignInLinks = (props) => {
     // M.AutoInit();
     (function() {
         var elems = document.querySelectorAll('.dropdown-trigger');
-        var instances = M.Dropdown.init(elems, {alignment: 'right',hover: true, constrainWidth: false});
+        var instances = M.Dropdown.init(elems, {alignment: 'right', constrainWidth: false});
       })()
 
     const currentIds = cdsRegLists && cdsRegLists.map((users) =>{

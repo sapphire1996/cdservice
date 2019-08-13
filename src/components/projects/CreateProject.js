@@ -65,7 +65,7 @@ export class CreateProject extends Component {
                 <input type='text' id="stateCode" placeholder="AK/18C/1158" onChange={this.onCodeChange} required/>
             </div>
             <div> 
-            <p>Choose an image for your advert(not too big size)</p>
+            <p>Choose an image for your project</p>
             <input
                type="file"
                className="form-control"

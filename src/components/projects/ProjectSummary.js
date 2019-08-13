@@ -5,7 +5,7 @@ import PreviewPicture from './PreviewPicture'
 const ProjectSummary =({project})=>{
     return(
         <div className="card z-depth-0 project-summary">
-        <div className="card-content grey-text text-darken-3">
+        <div className=" grey-text text-darken-3">
         <div className="border">
         {project.picture?<PreviewPicture pictureUrl={project.picture} height="200px"/>:null}
         </div>

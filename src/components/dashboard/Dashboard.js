@@ -29,12 +29,15 @@ class Dashboard extends Component{
         };
 
         (function() {
-            var elems = document.querySelectorAll('.fixed-action-btn');
-            var instances = M.FloatingActionButton.init(elems, {direction: 'left'}); 
-            var elems = document.querySelectorAll('.tooltipped');
-            var instances = M.Tooltip.init(elems)
+            let elems = document.querySelectorAll('.fixed-action-btn');
+            let instances = M.FloatingActionButton.init(elems, {direction: 'left'}); 
+            
         })();
 
+        (function() {
+            let elems = document.querySelectorAll('.tooltipped');
+            let instances = M.Tooltip.init(elems)
+        })();
 
         (()=>{
             if(this.props.adverts && this.props.adverts.length > 0){
@@ -61,13 +64,11 @@ class Dashboard extends Component{
                 <ProjectList  projects={projects} />
                 </div>
                 </div>
-                <Link to="/post">
                 <div className=" fixed-action-btn">
-                <a href="#" className="btn-floating tooltipped btn-large pink add-btn" data-position="left" data-tooltip="Add CDS Project">
+                <Link to="/post" className="btn-floating tooltipped btn-large pink add-btn" data-position="left" data-tooltip="Add CDS Project">
                 <i className="material-icons">add</i> 
-                </a>
+                </Link>
                 </div>
-                </Link> 
             </div>
         );
     }
