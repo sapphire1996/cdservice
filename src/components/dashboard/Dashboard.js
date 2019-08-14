@@ -57,11 +57,11 @@ class Dashboard extends Component{
             <App/>
                 <div className="row">
                 <div className="col-md-6 col-sm-12 card-panel" >
-                <Adverts  adverts={adverts}/>
+                {adverts?<Adverts  adverts={adverts}/>:<p>Loading adverts...</p>}
                 </div>
                 <hr/>
                 <div  className="col-md-6 col-sm-12">
-                <ProjectList  projects={projects} />
+                {projects?<ProjectList  projects={projects} />:<p>Loading projects...</p>}
                 </div>
                 </div>
                 <div className=" fixed-action-btn">

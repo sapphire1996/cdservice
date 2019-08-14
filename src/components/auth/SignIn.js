@@ -30,8 +30,8 @@ export class SignIn extends Component {
        user =users && users.find(user=> user.id === auth.uid);
       
     }
-    if(auth.uid && user && user.isAdmin === true) return <Redirect to='/admin'/>
-    if(auth.uid && user && user.isAdmin === false) return <Redirect to='/'/>
+    if(auth.uid && user && user.isAdmin) return <Redirect to='/admin'/>
+    if(auth.uid && user && !user.isAdmin) return <Redirect to='/'/>
     return (
       <div className="container auth">
         <form onSubmit={this.handleSubmit} className="white">
@@ -54,7 +54,6 @@ export class SignIn extends Component {
 
             </div>
         </form>
-        {/* <Footer/> */}
       </div>
     )
   }

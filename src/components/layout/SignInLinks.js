@@ -45,34 +45,37 @@ const SignInLinks = (props) => {
             </ul>
 
             <ul id="nav-mobile" className = "right hide-on-med-and-down" >
-                {userUid && user && user.isAdmin?
-                 <li >
-                 < NavLink to = "/reg" >Assign CDS</NavLink> 
-                </li>:
+            {userUid && user && !user.isAdmin?
                 <li >
-                    < NavLink to = "/post" > New Project </NavLink> 
-                </li> }
-
-                { userUid && user && user.isAdmin === false  | !done ?
+                < NavLink to = "/post" > New Project </NavLink> 
+                </li>
+                 :null}
+                {userUid && user && user.isAdmin?
+                <li >
+                < NavLink to = "/reg" >Assign CDS</NavLink> 
+                </li>:null }
+                { userUid && user && !user.isAdmin && !done ?
                 <li >
                 < NavLink to = "/registration" > Register CDS</NavLink> 
-                </li> :
+                </li> :null}
+                {userUid && user && user.isAdmin?
                 <li >
                 < NavLink to = "/register" >View Registration Record</NavLink> 
-                </li>}
-
+                </li> :null
+                }
                {userUid && user && user.isAdmin?
                 <li >
                 < NavLink to = "/guildline" >Project Guidline</NavLink> 
-                </li> :null}
+                </li> :null
+               }
 
-               {userUid && user && user.isAdmin === false?
+               {userUid && user && !user.isAdmin?
                 <li>
                 <NavLink className="dropdown-trigger" to='#' data-target="dropdown1">Notifications<i className="pink-text material-icons right">notifications_active</i></NavLink>
                 </li> :null}
                 
                 <li>
-                    <NavLink to="#" className="btn-floating pink lighten-1 btn-large dropdown-trigger" data-target="profile">{props.profile.initials}</NavLink>
+                    <NavLink to="#" className="btn-floating pink lighten-1 btn-large dropdown-trigger" data-target="profile">{props.profile.initials?props.profile.initials:null}</NavLink>
                 </li> 
 
             </ul> 
@@ -105,27 +108,30 @@ const SignInLinks = (props) => {
             <ul className="sidenav" id="slide-out">
                 {userUid && user && user.isAdmin?
                 <li>
-                    <NavLink to = "/admin" className="pink lighten-1 btn-large" > {props.profile.initials + " Pannel"}</NavLink>
-                </li>:
+                    <NavLink to = "/admin" className="pink lighten-1 btn-large" > {props.profile.initials?props.profile.initials:null+ " Pannel"}</NavLink>
+                </li>:null}
+                {userUid && user && !user.isAdmin?
                 <li>
-                <NavLink to = {'/profile/'+userUid} className="pink lighten-1 btn-large" > {props.profile.initials + " Profile"}</NavLink>
-                </li>
+                <NavLink to = {'/profile/'+userUid} className="pink lighten-1 btn-large" > {props.profile.initials?props.profile.initials:null + " Profile"}</NavLink>
+                </li>:null
                 }
-                {userUid && user && user.isAdmin === false?
+                {userUid && user && !user.isAdmin?
                 <li >
                 < NavLink to = "/post" > New Project </NavLink> 
-            </li>
-                 :
+                </li>
+                 :null}
+                {userUid && user && user.isAdmin?
                 <li >
                 < NavLink to = "/reg" >Assign CDS</NavLink> 
-            </li> }
-                { userUid && user && user.isAdmin === false  && !done ?
+                </li>:null }
+                { userUid && user && !user.isAdmin && !done ?
                 <li >
                 < NavLink to = "/registration" > Register CDS</NavLink> 
-                </li> :
+                </li> :null}
+                {userUid && user && user.isAdmin?
                 <li >
                 < NavLink to = "/register" >View Registration Record</NavLink> 
-                </li> 
+                </li> :null
                 }
                {userUid && user && user.isAdmin?
                 <li >
