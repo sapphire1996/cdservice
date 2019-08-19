@@ -23,15 +23,14 @@ export class SignIn extends Component {
         this.render();
     }
   render() {
-    const {authError, auth, users}= this.props;
+    const {authError, auth}= this.props;
   
-    let user
-    if(auth.uid && users){
-       user =users && users.find(user=> user.id === auth.uid);
+    // let user
+    // if(auth.uid && users){
+    //    user =users && users.find(user=> user.id === auth.uid);
       
-    }
-    if(auth.uid && user && user.isAdmin) return <Redirect to='/admin'/>
-    if(auth.uid && user && !user.isAdmin) return <Redirect to='/'/>
+    // }
+    if(auth.uid) return <Redirect to='/'/>
     return (
       <div className="container auth">
         <form onSubmit={this.handleSubmit} className="white">
@@ -62,7 +61,6 @@ const mapStateToProps=(state)=>{
   return{
     authError: state.auth.authError,
     auth: state.firebase.auth,
-    users: state.firestore.ordered.users,
   }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -70,11 +68,7 @@ const mapDispatchToProps=(dispatch)=>{
     signIn: (creds)=> dispatch(signIn(creds))
   }
 }
-export default compose(connect(mapStateToProps, mapDispatchToProps), 
-firestoreConnect(props =>[
-  {collection: 'users' 
-    }
-]))(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
 // where: [
 //   ['id', '==', props.auth.uid]
 // ]
