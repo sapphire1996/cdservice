@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-    <div className="text-center fixed-bottom light-green lighten-5">
+    <div className="text-center footer fixed-bottom light-green lighten-5">
        <span className="pink-text detail">By</span>
        <a className="green-text name" href="https://twitter.com/pelumi_sapphire"><strong> Pelumi Adebayo</strong></a>
        <br/>

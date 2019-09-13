@@ -11,31 +11,30 @@ class ProjectDetail extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      clicked: null
+      liked: false
     };
   }
+  //liked
    increment=(e)=>{
-     e.preventDefault() 
-     let id = e.target.id;    
+     e.preventDefault();
+     localStorage.removeItem(this.props.match.params.id);
     this.props.addLike(this.props.match.params.id);
-    localStorage.setItem(id, true)
     this.setState({
-      clicked: localStorage.getItem(id)
+      liked: true
     })    
-    console.log(this.state.clicked);
-
+    localStorage.setItem(this.props.match.params.id, this.state.liked);
   }
+  //dislike
    decrement=(e)=>{
-    e.preventDefault()
-    let id = e.target.id;
+    e.preventDefault();
+    localStorage.removeItem(this.props.match.params.id);
     this.props.removeLike(this.props.match.params.id);
-    localStorage.setItem(id, false)
     this.setState({
-      clicked:localStorage.getItem(id)
+      liked:false
     })
-    console.log(this.state.clicked);
-
+    localStorage.setItem(this.props.match.params.id, this.state.liked);
   }
+
 render(){
   const {project, auth, id}= this.props;
   if (!auth.uid) return <Redirect to='/signIn'/>
@@ -54,9 +53,9 @@ render(){
               <div><strong>Posted By {project.authorFullName} {project.stateCode}</strong></div>
               <div>{moment(project.createdAt.toDate()).calendar()}</div>
               <h5>{project.likeCount>1?project.likeCount + " likes":project.likeCount + " like"}</h5>
-              {this.state.clicked?
-              <i className="material-icons waves-effect btn-flat " id={id} onClick={this.decrement}>thumb_down</i>:
-              <i className="material-icons waves-effect btn-flat pink-text" id={id}  onClick={this.increment}>thumb_up</i>}
+              {localStorage.getItem(this.props.match.params.id)==="true"?
+              <i className="material-icons waves-effect btn-flat" onClick={this.decrement}>thumb_down</i>:
+              <i className="material-icons waves-effect btn-flat pink-text" onClick={this.increment}>thumb_up</i>}
             </div>
         </div>
       </div>

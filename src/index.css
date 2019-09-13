@@ -39,10 +39,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 .fixed-action-btn {
   position: fixed;
   right: 23px;
-  bottom: 40px;
-  margin-bottom: 3em;
-  z-index: 997;
+  bottom: 20px;
+  z-index: 2000;
 }
+
+
 .admin{
   margin-bottom: 5em;
 }
@@ -228,6 +229,7 @@ td, th {
 }
 .name{
   text-decoration: underline;
+  font-size: 1rem;
 }
 .name:hover { 
   background-color: pink;
@@ -297,7 +299,10 @@ table th {
 }
 .detail{
   font-family: details;
-  font-size: 20px
+  font-size: 15px
+}
+.footer{
+  max-height: 2.7em;
 }
 @media screen and (max-width: 600px) {
   .advertizer{
