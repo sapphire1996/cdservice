@@ -9,7 +9,7 @@ return(
     <span className="card-title">Personal CDS Project Guidline</span>
        {cdsProjectGuide && cdsProjectGuide.map(guide =>{
            return(
-                <div className="grey-text note-date">
+                <div className="grey-text note-date" key={guide.id}>
                 <h4>{guide.content}</h4>
                 </div>
            )}

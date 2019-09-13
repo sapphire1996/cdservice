@@ -21,8 +21,14 @@ this.props.projectGuidline(this.state)
 this.setState({ content: ''})
 }   
     render(){
-        const { guildline, auth} = this.props;  
+        const { guildline, auth, users} = this.props; 
+        let user
+        if(auth.uid && users){
+           user =users && users.find(user=> user.id === auth.uid);
+        }  
         if (!auth.uid) return <Redirect to='/signIn'/>
+        if(auth.uid && user && !user.isAdmin) return <Redirect to='/'/>
+
         return(
         <div className="container text-center">
         <div><h4 className="pink-text">Instruction!!</h4><h5>To Edit the guildline, 
@@ -44,7 +50,8 @@ this.setState({ content: ''})
 const mapStateToProps=(state)=>{
     return{
         auth: state.firebase.auth,
-        guildline: state.firestore.ordered.projectGuidline
+        guildline: state.firestore.ordered.projectGuidline,
+        users: state.firestore.ordered.users,
     }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -54,6 +61,7 @@ const mapDispatchToProps=(dispatch)=>{
 export default compose(
     connect(mapStateToProps, mapDispatchToProps), 
     firestoreConnect([
-        {collection: 'projectGuidline'}
+        {collection: 'projectGuidline'},
+        {collection: 'users'},
     ])
 )(EditGuidline)

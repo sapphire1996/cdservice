@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { createAdvert } from "../../store/actions/advertAction";
+import { createAdvert,progress } from "../../store/actions/advertAction";
 import PreviewPicture from '../projects/PreviewPicture';
 import RavePaymentModal from 'react-ravepayment';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
+import { firestoreConnect } from 'react-redux-firebase';
+import {compose} from 'redux';
 
-
-export class CreateProject extends Component {
+export class AdvertForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,15 +17,18 @@ export class CreateProject extends Component {
       picture: null,
       pictureUrl: null,
       duration: '',
-      key: "FLWPUBK_TEST-0f63793d23cd1f3e004bdc515f744d2f-X", // RavePay PUBLIC KEY
+      key: "FLWPUBK-850c3ee6959a0ae7046dc28695f11717-X", // RavePay PUBLIC KEY
       email: "", // customer email
       amount: null,
       paid: false,
       successMessage: "",
-      submited: false
+      submited: false,
+      token: 'unsubscribed',
+      progress: progress,
     };
+    
   }
- 
+
   callback = (response) => {
     if(response.success ||response.data.data.status ==="successful"){
       this.setState({
@@ -73,16 +77,37 @@ export class CreateProject extends Component {
  onPictureChange= (e) =>{
   let reader = new FileReader();
   let file = e.target.files[0];  
-  reader.onloadend= ()=>{
+  if (file && file.type.match('image.*')) {
+    reader.readAsDataURL(file);
+    reader.onloadend= ()=>{
       this.setState({
           picture: file,
           pictureUrl: reader.result
       });
   };
-  reader.readAsDataURL(file)
+  } else {
+   return;
+  }
+ 
+  reader.onerror = function(event) {
+    console.log(event);
+    reader.abort();
+  };
+  
  }
-   
-  handleSubmit=(e)=>{
+
+ onCheckToken=()=>{
+  if(this.props.tokens){
+    let userToken =this.props.tokens && this.props.tokens.find(token=>token.userId===this.props.auth.uid);
+    if(userToken){
+      this.setState({
+        token: userToken.token
+      })
+    }}
+ }
+ 
+ handleSubmit=(e)=>{
+   this.onCheckToken()
     e.preventDefault()
       this.props.createAdvert(this.state);
       this.setState({
@@ -93,29 +118,32 @@ export class CreateProject extends Component {
         pictureUrl: null,
         email: "", 
         amount: null,
-        successMessage: 'Your Ad Has Been Submitted For Review! Kindly refresh if you need to submit another advert',
-        submited: true
+        successMessage: 'Your Ad is Submitted For Review! Kindly refresh if you need to submit another advert',
+        submited: true,
+        progress: 100
       })
 }
     
   render() {
-    const { auth } = this.props;
+    const { auth} = this.props;
     if (!auth.uid) return <Redirect to='/signIn'/>
-
+  
+    
     return (
       <div className="p-1">
-     
         <form onSubmit={this.handleSubmit} className="white">
-            <h5 className="grey-text text-darken-3">Make it brief! The more brief, the more the visibility</h5>
+        <p className="grey-text text-darken-3">Make sure you are subcribed to notification before placing an advert</p>
+
+            <p className="pink-text">Make it brief! </p>
             <div >
                 <label htmlFor='title'>Content</label>
                 <input 
                 type='text'
                  id="product" 
-                 placeholder="interest in this 6 inches bed for #4500?" 
+                 placeholder="Discribe what you are adverting here" 
                  value={this.state.product}
                  onChange={this.onTitleChange}
-                 maxLength="50"
+                 maxLength="40"
                  required/>
             </div>
             <div >
@@ -133,7 +161,8 @@ export class CreateProject extends Component {
                 <input 
                   type='text' 
                   id="action" 
-                  placeholder="call: 09145455840 now!" 
+                  maxLength="40"
+                  placeholder="call: 09145455840 for enquires!" 
                   value={this.state.action}
                   onChange={this.onContentChange} 
                   required/>
@@ -147,6 +176,12 @@ export class CreateProject extends Component {
                   onChange={this.onEmailchange} 
                   required/>
             </div>
+            <p>
+              <label>
+                <input type="checkbox" onChange={this.onCheckToken} required/>
+                <span>I am subscribed to notification</span>
+              </label>
+            </p>
             <div>
               <p>Choose an image for your advert(not too big size)</p>
             <input
@@ -171,7 +206,13 @@ export class CreateProject extends Component {
                     <option value="1000">Advertize For one month for #1000</option>
                 </select>
             </div>
-            {this.state.paid?<p className="formSuccess">{this.state.successMessage}</p>:null}
+            {this.state.paid?<div>
+              <div className="progress" data-label={this.state.progress+'% done'}>
+                <span className="value" style={{width: this.state.progress+'%'}}></span>
+              </div>
+              </div>:null}
+            {this.state.paid&&this.state.progress===100?<p className="formSuccess text-center">{this.state.successMessage}</p>:null}
+
             {this.state.paid && this.state.submited===false?<div><button type="submit">Submit</button></div>:null}
         </form>
         {this.state.amount!==null && this.state.email!=='' && this.state.paid===false?
@@ -187,8 +228,8 @@ export class CreateProject extends Component {
                    ravePubKey={this.state.key}
                    callback={this.callback}
                    close={this.close}
-                       isProduction={false}
-                       tag="button" /*it can be button or a or input tag */
+                       isProduction={true}
+                       tag="button" 
                  />
                </p>
              </div>
@@ -197,14 +238,25 @@ export class CreateProject extends Component {
     )
   }
 }
+
 const mapStateToProps=(state)=>{
   return{
-      auth: state.firebase.auth
-  }
+      auth: state.firebase.auth,
+      tokens: state.firestore.ordered.tokens
+    }
 }
 const mapDispatchToProps=(dispatch)=>{
   return{
     createAdvert: (data)=> dispatch(createAdvert(data))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProject)
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect(() => {        
+    return [
+      {collection: 'tokens'}
+    ]
+  }
+  )
+)(AdvertForm);

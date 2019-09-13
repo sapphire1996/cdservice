@@ -29,13 +29,21 @@ export class CreateProject extends Component {
  onPictureChange= (e) =>{
   let reader = new FileReader();
   let file = e.target.files[0];  
-  reader.onloadend= ()=>{
+  if (file && file.type.match('image.*')) {
+    reader.readAsDataURL(file);
+    reader.onloadend= ()=>{
       this.setState({
           picture: file,
           pictureUrl: reader.result
       });
   };
-  reader.readAsDataURL(file)
+  } else {
+   return;
+  }
+  reader.onerror = function(event) {
+    console.log(event);
+    reader.abort();
+  };
  }
    
   handleSubmit=(e)=>{
@@ -61,8 +69,8 @@ export class CreateProject extends Component {
                 <textarea id="content" className="materialize-textarea" onChange={this.onContentChange} required></textarea>
             </div>
             <div >
-                <label htmlFor='stateCode'>State Code</label>
-                <input type='text' id="stateCode" placeholder="AK/18C/1158" onChange={this.onCodeChange} required/>
+                <label htmlFor='stateCode'>State Code or CDS Group Name</label>
+                <input type='text' id="stateCode" placeholder="AK/18C/1158 OR 'for SDGs'" onChange={this.onCodeChange} required/>
             </div>
             <div> 
             <p>Choose an image for your project</p>

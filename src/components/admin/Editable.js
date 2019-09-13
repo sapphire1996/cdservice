@@ -15,7 +15,6 @@ export class Editable extends Component {
     bcode: ''
 }
 handleChange=(e)=>{
-  console.log(e.target.name);
     this.setState({
       [e.target.id]: e.target.value
     } )
@@ -42,14 +41,14 @@ handleSubmit=(e)=>{
           <input className="col m-1" onChange={this.handleChange} placeholder="Stream" id="stream"/>
           </div>
         </div>
-        <div>
+        {/* <div>
         <span>What should be the State Code Prefix?</span>
           <div className="col">
             <div className="row">
               <span className="first col-4"><input id="scode" onChange={this.handleChange} placeholder="Ak" type="text"/></span><input id="bcode" onChange={this.handleChange} placeholder="18C" className="second col-3" type="text" />
             </div>
           </div>
-        </div>
+        </div> */}
         <button href="" className="pink lighten-1 btn-small waves-effect">Publish</button>
         </form>
         </Accordion>

@@ -9,7 +9,8 @@ import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
 import {Redirect} from 'react-router-dom';
-import {deleteRegister} from '../../store/actions/adminAction'
+import {deleteRegister} from '../../store/actions/adminAction';
+import {VerticleButton as ScrollUpButton} from "react-scroll-up-button";
 import XLSX from 'xlsx'
 
 class App extends Component {
@@ -67,9 +68,14 @@ wb.Props.Title = "Insert Title Here";
   
 
   render() {  
-    const {editables, deleteRegister, auth}= this.props;
+    const {editables, deleteRegister, auth, users}= this.props;
+    let user
+        if(auth.uid && users){
+           user =users && users.find(user=> user.id === auth.uid);
+        } 
     if (!auth.uid) return <Redirect to='/signIn'/>
-  
+    if(auth.uid && user && !user.isAdmin) return <Redirect to='/'/>
+
     const heading = editables && editables.map((heading) =>{
       return heading.year + ' BATCH '+ heading.batch +' STREAM '+ heading.stream;
     })  
@@ -130,6 +136,7 @@ wb.Props.Title = "Insert Title Here";
           />
           <ToastContainer/>
         </div>
+        <ScrollUpButton style={{zIndex: '2000'}}/>
       </div>
     );
   }
@@ -138,6 +145,7 @@ wb.Props.Title = "Insert Title Here";
 const style = {
   display: 'flex',
   justifyContent: 'center',
+  marginBottom: '5em',
 }
 
 const mapStateToProps=(state)=>{
@@ -145,6 +153,7 @@ const mapStateToProps=(state)=>{
   return{
       editables: state.firestore.ordered.editables,
       auth: state.firebase.auth,
+      users: state.firestore.ordered.users,
   }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -155,6 +164,7 @@ const mapDispatchToProps=(dispatch)=>{
 export default compose(
   connect(mapStateToProps, mapDispatchToProps), 
   firestoreConnect([
-      {collection: 'editables'}
+      {collection: 'editables'},
+      {collection: 'users'},
   ])
 )(App)

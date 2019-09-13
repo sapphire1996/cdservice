@@ -11,30 +11,33 @@ class ProjectDetail extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      clicked: false
+      clicked: null
     };
   }
    increment=(e)=>{
-     e.preventDefault()
-     console.log(this.props.match.params.id);
-     
+     e.preventDefault() 
+     let id = e.target.id;    
     this.props.addLike(this.props.match.params.id);
+    localStorage.setItem(id, true)
     this.setState({
-      clicked:!this.state.clicked
-    })
+      clicked: localStorage.getItem(id)
+    })    
     console.log(this.state.clicked);
-    
+
   }
    decrement=(e)=>{
     e.preventDefault()
+    let id = e.target.id;
     this.props.removeLike(this.props.match.params.id);
+    localStorage.setItem(id, false)
     this.setState({
-      clicked:!this.state.clicked
+      clicked:localStorage.getItem(id)
     })
     console.log(this.state.clicked);
+
   }
 render(){
-  const {project, auth}= this.props;
+  const {project, auth, id}= this.props;
   if (!auth.uid) return <Redirect to='/signIn'/>
   
   if (project) {
@@ -52,12 +55,11 @@ render(){
               <div>{moment(project.createdAt.toDate()).calendar()}</div>
               <h5>{project.likeCount>1?project.likeCount + " likes":project.likeCount + " like"}</h5>
               {this.state.clicked?
-              <i className="material-icons waves-effect btn-flat " onClick={this.decrement}>thumb_down</i>:
-              <i className="material-icons waves-effect btn-flat pink-text"  onClick={this.increment}>thumb_up</i>}
+              <i className="material-icons waves-effect btn-flat " id={id} onClick={this.decrement}>thumb_down</i>:
+              <i className="material-icons waves-effect btn-flat pink-text" id={id}  onClick={this.increment}>thumb_up</i>}
             </div>
         </div>
       </div>
-      {/* <Footer/> */}
     </div>
     )
   }else{
@@ -70,8 +72,6 @@ render(){
 }
 }
 const mapStateToProps=(state, ownProps)=>{
-  // console.log(state);
-  
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id]: null;

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ReactModal from 'react-modal';
-
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
@@ -38,8 +37,10 @@ const customStyles = {
     render () {
       const { guildline} = this.props; 
       return (
-        <div>
-          <button className="btn btn-small m-2" onClick={this.handleOpenModal}>personal CDS Project Guildlines</button>
+        <div className="inline">
+          <button className="btn btn-lg m-2" onClick={this.handleOpenModal}>personal CDS Project Guildlines
+          <i className="pink-text material-icons left">rate_review</i>
+          </button>
           <ReactModal 
              isOpen={this.state.showModal}
              contentLabel="Project Guidline"
@@ -74,6 +75,5 @@ export default compose(
     ])
 )(App);
 
-//   const props = {};
 
   ReactDOM.render(<App/>, document.getElementById('root'))

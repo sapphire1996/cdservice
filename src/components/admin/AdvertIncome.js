@@ -20,12 +20,8 @@ class AdvertIncome extends Component{
       getAdvertIncome=(e) =>{
           e.preventDefault();
         const rangeOneDate = new Date(this.state.rangeOne);
-        console.log(rangeOneDate);
-
         //date two
-        const rangeTwoDate = new Date(this.state.rangeTwo);
-        console.log(rangeTwoDate);
-                   
+        const rangeTwoDate = new Date(this.state.rangeTwo);                   
         let income = [];
         let i;
         firebase.firestore().collection("adverts")
@@ -36,7 +32,6 @@ class AdvertIncome extends Component{
             income.push(querySnapshot.docs[i].data())
             }
             this.setState({income});
-            console.log(this.state.income);
             this.render();
 
         });
@@ -73,7 +68,7 @@ render(){
        {this.state.income && this.state.income.length > 0 ? this.state.income && this.state.income.map(adIncome =>{
            return <li key={adIncome.authorId}>
                     <div className="">
-                    {moment(adIncome.createdAt.toDate()).format('ll')} - #{adIncome.amountPaid}
+                    {moment(adIncome.createdAt.toDate()).format('ll')} - #{adIncome.amountPaid} - {adIncome.advertizerName}
                     </div>
                 </li>
            }):<p>There is no income for this dates</p>}

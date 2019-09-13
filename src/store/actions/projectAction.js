@@ -1,4 +1,5 @@
 import { storage } from '../../config/fbConfig';
+const uuidv4 = require('uuid/v4');
 
 export const createProject= (data)=>{
     const {title, content,stateCode, picture} = data;
@@ -6,10 +7,9 @@ export const createProject= (data)=>{
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const authorId= getState().firebase.auth.uid;
-        console.log(getState.firebase);
-        
+        let uuid = uuidv4(picture.name)
         if(authorId != null) {
-            var store = storage.ref(`profile/${picture.name}`).put(picture);
+            var store = storage.ref(`profile/${uuid}/${picture.name}`).put(picture);
             store.on('state_changed',
             //progress function
              (snapshot)=>{
@@ -21,7 +21,7 @@ export const createProject= (data)=>{
             },
             //complete function
              ()=>{
-                storage.ref('profile').child(picture.name).getDownloadURL().then(url=>{
+                storage.ref(`profile/${uuid}/`).child(picture.name).getDownloadURL().then(url=>{
                     firestore.collection('projects').add({
                         title,
                         content, 
@@ -72,7 +72,12 @@ export const removeLike=(id)=>{
 export const deleteProject=(id)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
-        firestore.collection('projects').doc(id).delete().then(()=>{
+        const file =firestore.collection('projects').doc(id)
+        file.get().then(doc=>{            
+            // //remove picture from storage
+            const url =storage.refFromURL(doc.data().picture)                    
+            storage.ref().child(url.location.path).delete();
+        }).then(()=>file.delete()).then(()=>{
                 dispatch({type: 'DELETE_PROJECT', id});
             }).catch((err)=>{
                 dispatch({type: 'DELETE_PROJECT_ERROR', err})

@@ -17,6 +17,8 @@ import RegTable from './components/admin/RegTable';
 import Profile from './components/dashboard/Profile';
 import ResetPassword from "./components/auth/PasswordReset";
 import Footer from './components/layout/Footer';
+import AppGuidline from './components/dashboard/AppGuidline';
+import AdminGuidline from './components/admin/AdminGuidline';
 
 class App extends Component {
   render() {
@@ -39,6 +41,8 @@ class App extends Component {
          <Route path='/guildline' component={EditGuidline}/>
          <Route path='/reg' component={RegTable}/>
          <Route path='/resetpassword' component={ResetPassword}/>
+         <Route path='/appGuidline' component={AppGuidline}/>
+         <Route path='/adminGuidline' component={AdminGuidline}/>
          <Route component={NotFound}/>
        </Switch>
        <Footer/>

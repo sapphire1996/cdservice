@@ -68,7 +68,7 @@ export class SignUp extends Component {
             </div>
             <p className="col-md-4 col-sm-6">
             <label>
-                <input type="checkbox" class="filled-in" id='passwordVisibility' onClick={this.toggleVisibility}/>
+                <input type="checkbox" className="filled-in" id='passwordVisibility' onClick={this.toggleVisibility}/>
                 <span>Show password</span>
             </label>
             </p>

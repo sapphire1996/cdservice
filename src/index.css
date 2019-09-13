@@ -1,7 +1,9 @@
 html{
   min-height: 100%;
 }
-
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
 form{
   padding: 20px;
   margin-top: 60px;
@@ -10,6 +12,12 @@ form{
 form button, form h5{
   margin: 20px 0;
 }
+.sticky {
+  position: fixed;
+  top: 1em;
+  width: 80%;
+}
+
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
@@ -25,7 +33,19 @@ input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   color: #ec407a !important;
 }
-
+.container{
+  margin-bottom: 5em;
+}
+.fixed-action-btn {
+  position: fixed;
+  right: 23px;
+  bottom: 40px;
+  margin-bottom: 3em;
+  z-index: 997;
+}
+.admin{
+  margin-bottom: 5em;
+}
 body {
   margin: 0;
   padding: 0;
@@ -33,6 +53,7 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
     font-size: 15px;
+    font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-size: 100%;
@@ -138,11 +159,26 @@ select {
   width: 50%;
   margin: 0 auto;
 }
+.panel{
+  border-radius: 2px;
+  padding: 0 0.5em 0 0.5em;
+  margin-top: 1em;
+}
+.inline{
+  display: inline-block;
+  font-size: 35px;
+}
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .advertFormPreview {
     width: 70%;
   }
+  .sticky{
+    position: relative;
+    height:100%;
+    width: 100%;
+  }
+
 }
 button.signout {
   background-color: transparent;
@@ -196,12 +232,18 @@ td, th {
 .name:hover { 
   background-color: pink;
 }
-/* .footer{
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 1px;
-} */
+a{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+table td {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+table th {
+  font-size: 2rem;
+  font-weight: 400;
+}
 .auth{
   height: 100vh;
 }
@@ -213,20 +255,64 @@ td, th {
   font-family: details;
   src:url(../src/fonts/KaushanScript-Regular.otf)
 }
+.styled{
+  font-family: advertizers;
+}
 .advertizer{
   font-family: advertizers;
-  font-size: 20px
+  font-size: 10px
+}
+.projectSection{
+  padding: 1em;
+}
+.cd-top--is-visible { 
+   /* back-to-top button visible */
+  visibility: visible;
+  opacity: 1;
+}
+.progress {
+  height: 3em;
+  width: 100%;
+  background-color: #c9c9c9;
+  position: relative;
+  margin-top: 3em;
+}
+.progress:before {
+  content: attr(data-label);
+  font-size: 1.6em;
+  position: absolute;
+  text-align: center;
+  top: 3px;
+  left: 0;
+  right: 0;
+}
+.progress .value {
+  background-color: #4CAF60;
+  display: inline-block;
+  height: 100%;
+}
+.cd-top--fade-out { 
+  /* reduce button opacity if user keeps scrolling */
+  opacity: .5;
 }
 .detail{
   font-family: details;
-  font-size: 30px
+  font-size: 20px
 }
 @media screen and (max-width: 600px) {
   .advertizer{
     font-size: 15px
   }
   .detail{
-    font-size: 20px
+    font-size: 15px
+  }
+  table td {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+  table th {
+    font-size: 1.5rem;
+    font-weight: 400;
   }
 }
 .head{
@@ -235,3 +321,4 @@ td, th {
 p{
   margin-top: 20px;
 }
+

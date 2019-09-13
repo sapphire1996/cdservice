@@ -9,6 +9,8 @@ import { firestoreConnect } from 'react-redux-firebase';
 import {compose} from 'redux';
 import {Redirect} from 'react-router-dom';
 import { asignCds } from "../../store/actions/adminAction";
+import {VerticleButton as ScrollUpButton} from "react-scroll-up-button";
+
 
 class RegTable extends Component {
   constructor(props) {
@@ -72,8 +74,13 @@ class RegTable extends Component {
   this.getUsers();
 }
   render() {  
-    const {editables, auth}= this.props;
+    const {editables, auth, users}= this.props;
+    let user
+    if(auth.uid && users){
+       user =users && users.find(user=> user.id === auth.uid);
+    } 
     if (!auth.uid) return <Redirect to='/signIn'/>
+    if(auth.uid && user && !user.isAdmin) return <Redirect to='/'/>
 
       const heading = editables && editables.map((heading) =>{
       return heading.year + ' BATCH '+ heading.batch +' STREAM '+ heading.stream;
@@ -82,7 +89,7 @@ class RegTable extends Component {
     return (
       <div style={style}>
         <div>
-          <h1>{heading}</h1>
+          <h1 className="text-center">{heading}</h1>
           <table id="table" >
             <thead>
               <tr id="con">
@@ -97,14 +104,14 @@ class RegTable extends Component {
             <tbody>
              {this.state.users && this.state.users.length > 0? this.state.users.map((user) => {
                  return  <tr key={user.identity}>
-                    <td>{user.stateCode+user.codeNumber}</td>
+                    <td>{user.codeNumber}</td>
                     <td>{user.fullName}</td>
                     <td>{user.course}</td>
                     <td>{user.localGovt}</td>
                     <td>{user.ppa}</td>
                     <td><input id={user.identity}  list={user.localGovt} type="text" onChange={this.handleChange}/>
                     <datalist id={user.localGovt}>
-                    {this.getLg(user.localGovt) && this.getLg(user.localGovt).cdsGroup.map((cds)=>{
+                    {this.getLg(user.localGovt).cdsGroup && this.getLg(user.localGovt).cdsGroup.map((cds)=>{
                     return <option  key={cds}>{cds}</option>})
                     }
                     </datalist>
@@ -116,6 +123,7 @@ class RegTable extends Component {
              </table>
           <ToastContainer/>
         </div>
+        <ScrollUpButton style={{zIndex: '2000'}}/>
       </div>
     );
   }
@@ -127,6 +135,7 @@ const s={
 const style = {
   display: 'flex',
   justifyContent: 'center',
+  marginBottom: '5em',
 }
 
 const mapStateToProps=(state)=>{
@@ -135,7 +144,9 @@ const mapStateToProps=(state)=>{
     auth: state.firebase.auth,
     editables: state.firestore.ordered.editables,
     localGovtList: state.firestore.ordered.localGovtList,
-    cdsRegLists: state.firestore.ordered.cdsRegLists
+    cdsRegLists: state.firestore.ordered.cdsRegLists,
+    users: state.firestore.ordered.users,
+
   }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -148,6 +159,7 @@ export default compose(
   firestoreConnect([
       {collection: 'editables'},
       {collection: 'localGovtList'},
-      {collection: 'cdsRegLists'}
+      {collection: 'cdsRegLists'},
+      {collection: 'users'},
   ])
 )(RegTable)

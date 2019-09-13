@@ -18,7 +18,7 @@ const Navbar = (props) =>{
         <div>
         <nav className="nav-extended">
         <div className=" container nav-wrapper">
-        <Link to="/" className="brand-logo">IBOM KOPA CDS</Link>
+        <Link to="/" className="brand-logo styled">IBOM KOPA CDS</Link>
         <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
         {links}
         </div>

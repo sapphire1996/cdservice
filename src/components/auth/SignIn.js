@@ -23,14 +23,15 @@ export class SignIn extends Component {
         this.render();
     }
   render() {
-    const {authError, auth}= this.props;
-  
-    // let user
-    // if(auth.uid && users){
-    //    user =users && users.find(user=> user.id === auth.uid);
-      
-    // }
-    if(auth.uid) return <Redirect to='/'/>
+    const {authError, auth, users}= this.props;
+    let user
+    if(auth.uid && users){
+       user =users && users.find(user=> user.id === auth.uid);
+    } 
+    // if(auth.uid) return <Redirect to='/'/>
+    if(auth.uid && user && !user.isAdmin) return <Redirect to='/'/>
+    if(auth.uid && user && user.isAdmin) return <Redirect to='/admin'/>
+
     return (
       <div className="container auth">
         <form onSubmit={this.handleSubmit} className="white">
@@ -61,6 +62,7 @@ const mapStateToProps=(state)=>{
   return{
     authError: state.auth.authError,
     auth: state.firebase.auth,
+    users: state.firestore.ordered.users,
   }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -68,7 +70,10 @@ const mapDispatchToProps=(dispatch)=>{
     signIn: (creds)=> dispatch(signIn(creds))
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
-// where: [
-//   ['id', '==', props.auth.uid]
-// ]
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps), 
+  firestoreConnect([
+      {collection: 'users'},
+  ])
+)(SignIn)

@@ -42,7 +42,6 @@ export const deleteCourse=(id)=>{
 export const addCdsGroup= (cds)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
-        console.log(getState())
         firestore.collection('cdsGroups').add({
             ...cds, 
         }).then(()=>{
@@ -70,7 +69,6 @@ export const deleteCdsGroup=(id)=>{
 export const addLocalGovt= (localgovt)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
-        console.log(getState())
         firestore.collection('localGovtList').add({
             ...localgovt, 
         }).then(()=>{
@@ -146,11 +144,11 @@ export const sendNotification= (content)=>{
     return(dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
-        console.log( getState());
         
         firestore.collection('notifications').add({
             ...content, 
-            user: profile.firstName+' '+ profile.lastName,
+            user: profile.firstName+' '+ profile.lastName+':',
+            title: 'To whom it may concern!',
             time: new Date()
         }).then(()=>{
             dispatch({type: 'SEND_NOTIFICATION', content})

@@ -129,7 +129,6 @@ handleChange=(e)=>{
     // resolve runs the first function in .then
     promise.then(
       result => {
-        console.log(result);
         this.setState({cds:result});
         if (isValid) {
           const submit =  {

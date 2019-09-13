@@ -24,7 +24,7 @@ this.setState({ content: ''})
         return(
         <Accordion title='Send notification to corp members'>
             <p>
-            <input id="content" value={this.state.content} placeholder="message goes here" onChange={this.handleChange}></input>
+            <input id="content" value={this.state.content} placeholder="message goes here" onChange={this.handleChange} required></input>
             <button onClick={this.handleSend}>Send Notification</button>
             </p>
         </Accordion>
